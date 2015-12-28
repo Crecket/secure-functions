@@ -1,0 +1,20 @@
+{
+  "name": "crecket/secure-functions",
+  "description": "Secure-functions makes it easier to secure functionality",
+  "license": "WTFPL",
+  "authors": [
+    {
+      "name": "Gregory Goijaerts",
+      "email": "crecketgaming@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "defuse/php-encryption": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "SecureFuncs\\": "src/"
+    }
+  }
+}
