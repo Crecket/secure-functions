@@ -1,6 +1,7 @@
 # secure-functions
 [![Latest Stable Version](https://poser.pugx.org/crecket/secure-functions/v/stable)](https://packagist.org/packages/crecket/secure-functions)
 [![Build Status](https://travis-ci.org/Crecket/secure-functions.svg?branch=master)](https://travis-ci.org/Crecket/secure-functions)
+
 A collection of functions which can be used for security
 
 ## Instalation
@@ -14,7 +15,6 @@ Install through composer and require the autoloader.
 Download the files and require them in your project.
 
 `require '/secure-functions/src/SecureFuncs.php';`
-
 
 
 ## Usage
