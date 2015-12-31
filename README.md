@@ -1,5 +1,5 @@
 # secure-functions
-[![Latest Stable Version](https://poser.pugx.org/crecket/secure-functions/v/stable)](https://packagist.org/packages/crecket/secure-functions)
+[![Latest Stable Version](https://img.shields.io/github/release/crecket/secure-functions.svg)](https://packagist.org/packages/crecket/secure-functions)
 [![Build Status](https://travis-ci.org/Crecket/secure-functions.svg?branch=master)](https://travis-ci.org/Crecket/secure-functions)
 
 A collection of functions which can be used for security
