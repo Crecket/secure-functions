@@ -2,7 +2,7 @@
 [![Latest Stable Version](https://img.shields.io/github/release/crecket/secure-functions.svg)](https://packagist.org/packages/crecket/secure-functions)
 [![Build Status](https://travis-ci.org/Crecket/secure-functions.svg?branch=master)](https://travis-ci.org/Crecket/secure-functions)
 
-A collection of functions which can be used for security
+A collection of functions which can be used for security purposes.
 
 ## Instalation
 
@@ -16,12 +16,10 @@ Download the files and require them in your project.
 
 `require '/secure-functions/src/SecureFuncs.php';`
 
-
 ## Usage
 All functions are static public functions right now so you can simply call the functions like this:
 
 `SecureFuncs\SecureFuncs::password_hash('input');`
-
 
 ## Functions
 
