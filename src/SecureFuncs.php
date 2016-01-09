@@ -51,6 +51,19 @@ class SecureFuncs
     }
 
     /**
+     * Checks if the given id and token match > If not the form has been sent twice or the ID is incorrect
+     * @param $id
+     * @return md5hash
+     */
+    public function getFormToken($id, $token)
+    {
+        if (empty($_SESSION['formtoken'][$id])) {
+            return false;
+        }
+        return md5($_SESSION['formtoken'][$id]) == $token;
+    }
+
+    /**
      * @param $password -> password to hash
      * @return bool|string
      */
@@ -67,6 +80,17 @@ class SecureFuncs
     public static function password_verify($password, $hash)
     {
         return password_verify(base64_encode(hash('sha256', $password, true)), $hash);
+    }
+
+    /**
+     * Sets a new random token using the given id
+     * @param $id
+     * @return md5hash
+     */
+    public function setFormToken($id)
+    {
+        $_SESSION['formtoken'][$id] = $this->randomString(100);
+        return md5($_SESSION['formtoken'][$id]);
     }
 
     /**
