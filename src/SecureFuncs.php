@@ -17,11 +17,11 @@ class SecureFuncs
     {
         try {
             return \Crypto::decrypt($input, $key);
-        } catch (Ex\InvalidCiphertextException $ex) {
+        } catch (\Defuse\Crypto\Exception\InvalidCiphertextException $ex) {
             die('DANGER! DANGER! The ciphertext has been tampered with!');
-        } catch (Ex\CryptoTestFailedException $ex) {
+        } catch (\Defuse\Crypto\Exception\CryptoTestFailedException $ex) {
             die('Cannot safely perform decryption');
-        } catch (Ex\CannotPerformOperationException $ex) {
+        } catch (\Defuse\Crypto\Exception\CannotPerformOperationException $ex) {
             die('Cannot safely perform decryption');
         }
     }
@@ -41,9 +41,9 @@ class SecureFuncs
 
         try {
             $ciphertext = \Crypto::encrypt($input, $key);
-        } catch (Ex\CryptoTestFailedException $ex) {
+        } catch (\Defuse\Crypto\Exception\CryptoTestFailedException $ex) {
             die('Cannot safely perform encryption');
-        } catch (Ex\CannotPerformOperationException $ex) {
+        } catch (\Defuse\Crypto\Exception\CannotPerformOperationException $ex) {
             die('Cannot safely perform encryption');
         }
 
@@ -55,7 +55,7 @@ class SecureFuncs
      * @param $id
      * @return md5hash
      */
-    public function getFormToken($id, $token)
+    public static function getFormToken($id, $token)
     {
         if (empty($_SESSION['formtoken'][$id])) {
             return false;
@@ -87,9 +87,9 @@ class SecureFuncs
      * @param $id
      * @return md5hash
      */
-    public function setFormToken($id)
+    public static function setFormToken($id)
     {
-        $_SESSION['formtoken'][$id] = $this->randomString(100);
+        $_SESSION['formtoken'][$id] = self::randomString(100);
         return md5($_SESSION['formtoken'][$id]);
     }
 
@@ -136,9 +136,9 @@ class SecureFuncs
     {
         try {
             return \Crypto::createNewRandomKey();
-        } catch (Ex\CryptoTestFailedException $ex) {
+        } catch (\Defuse\Crypto\Exception\CryptoTestFailedException $ex) {
             die('Cannot safely create a key');
-        } catch (Ex\CannotPerformOperationException $ex) {
+        } catch (\Defuse\Crypto\Exception\CannotPerformOperationException $ex) {
             die('Cannot safely create a key');
         }
     }
