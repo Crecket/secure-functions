@@ -89,7 +89,7 @@ class SecureFuncs
      */
     public function setFormToken($id)
     {
-        $_SESSION['formtoken'][$id] = $this->randomString(100);
+        $_SESSION['formtoken'][$id] = self::randomString(100);
         return md5($_SESSION['formtoken'][$id]);
     }
 
