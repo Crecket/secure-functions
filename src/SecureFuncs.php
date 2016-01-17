@@ -171,7 +171,7 @@ class SecureFuncs
      */
     public static function pseudoBytes($length = 1)
     {
-        $bytes = openssl_random_pseudo_bytes($length, $strong);
+        $bytes = \openssl_random_pseudo_bytes($length, $strong);
         if ($strong === TRUE) {
             return $bytes;
         } else {
