@@ -29,6 +29,9 @@ Returns the decryped output as a string using [defuse/php-encryption](https://gi
 ### encrypt($input, $key = false)
 Encrypt a string, if no key is given one will be generated for you (Recommended) using [defuse/php-encryption](https://github.com/defuse/php-encryption)'s library.
 
+### getFormToken('form_token_id', $_POST['form_token'], $limit = false)
+Verify a form token for the given id. The $limit is optional andm ust be given in seconds, if the limit is 300 and the token is used after 300 seconds it will be considered invalid.
+
 ### password_hash($password)
 Hash the given password. This function allows for longer passwords and isn't affected by the null-byte issue.
 
@@ -47,8 +50,13 @@ Return a random key using [defuse/php-encryption](https://github.com/defuse/php-
 ### randomString($length)
 Returns a random string for the given length
 
-### pseudoBytes($length)
-Returns random bytes for the given length
+### setFormToken($id)
+Set a unique token in the session and returns it, can be used to verify post/get requests
 
 ### strlen($str)
 Returns the length of the given string using mb_strlen when available
+
+### pseudoBytes($length)
+Returns random bytes for the given length
+
+

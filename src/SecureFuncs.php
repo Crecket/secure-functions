@@ -53,14 +53,28 @@ class SecureFuncs
     /**
      * Checks if the given id and token match > If not the form has been sent twice or the ID is incorrect
      * @param $id
+     * @param $limit_time
      * @return md5hash
      */
-    public static function getFormToken($id, $token)
+    public static function getFormToken($id, $token, $limit_time = false)
     {
-        if (empty($_SESSION['formtoken'][$id])) {
-            return false;
+        $valid = false;
+        // Check if isset
+        if (!empty($_SESSION['formtoken'][$id]) && !empty($_SESSION['formtoken_time'][$id])) {
+            // Check if token is correct
+            if (md5($_SESSION['formtoken'][$id]) === $token) {
+                $valid = true;
+                // If time limit is set, check if isset
+                if ($limit_time !== false) {
+                    // if time < limit time return true/false
+                    if (empty($_SESSION['formtoken_time'][$id]) || $_SESSION['formtoken_time'][$id] < time() - $limit_time){
+                        $valid = false;
+                    }
+                }
+            }
         }
-        return md5($_SESSION['formtoken'][$id]) == $token;
+        unset($_SESSION['formtoken'][$id]);
+        return $valid;
     }
 
     /**
@@ -80,17 +94,6 @@ class SecureFuncs
     public static function password_verify($password, $hash)
     {
         return password_verify(base64_encode(hash('sha256', $password, true)), $hash);
-    }
-
-    /**
-     * Sets a new random token using the given id
-     * @param $id
-     * @return md5hash
-     */
-    public static function setFormToken($id)
-    {
-        $_SESSION['formtoken'][$id] = self::randomString(100);
-        return md5($_SESSION['formtoken'][$id]);
     }
 
     /**
@@ -165,18 +168,15 @@ class SecureFuncs
     }
 
     /**
-     * @param int $length
-     * @return string
-     * @throws \Exception
+     * Sets a new random token using the given id
+     * @param $id
+     * @return md5hash
      */
-    public static function pseudoBytes($length = 1)
+    public static function setFormToken($id)
     {
-        $bytes = \openssl_random_pseudo_bytes($length, $strong);
-        if ($strong === TRUE) {
-            return $bytes;
-        } else {
-            throw new \Exception ('Insecure server! (OpenSSL Random byte generation insecure.)');
-        }
+        $_SESSION['formtoken'][$id] = self::randomString(100);
+        $_SESSION['formtoken_time'][$id] = time();
+        return md5($_SESSION['formtoken'][$id]);
     }
 
     /**
@@ -194,6 +194,21 @@ class SecureFuncs
             return $length;
         } else {
             return strlen($str);
+        }
+    }
+
+    /**
+     * @param int $length
+     * @return string
+     * @throws \Exception
+     */
+    public static function pseudoBytes($length = 1)
+    {
+        $bytes = \openssl_random_pseudo_bytes($length, $strong);
+        if ($strong === TRUE) {
+            return $bytes;
+        } else {
+            throw new \Exception ('Insecure server! (OpenSSL Random byte generation insecure.)');
         }
     }
 
