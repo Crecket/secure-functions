@@ -56,7 +56,7 @@ class SecureFuncs
      * @param $limit_time
      * @return md5hash
      */
-    public static function getFormToken($id, $token, $limit_time = false)
+    public static function getFormToken($id, $token, $limit_time = 300)
     {
         $valid = false;
         // Check if isset
@@ -74,6 +74,7 @@ class SecureFuncs
             }
         }
         unset($_SESSION['formtoken'][$id]);
+        unset($_SESSION['formtoken_time'][$id]);
         return $valid;
     }
 

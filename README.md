@@ -29,7 +29,7 @@ Returns the decryped output as a string using [defuse/php-encryption](https://gi
 ### encrypt($input, $key = false)
 Encrypt a string, if no key is given one will be generated for you (Recommended) using [defuse/php-encryption](https://github.com/defuse/php-encryption)'s library.
 
-### getFormToken('form_token_id', $_POST['form_token'], $limit = false)
+### getFormToken('form_token_id', $form_token, $limit = 300)
 Verify a form token for the given id. The $limit is optional andm ust be given in seconds, if the limit is 300 and the token is used after 300 seconds it will be considered invalid.
 
 ### password_hash($password)
