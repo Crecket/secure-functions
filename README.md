@@ -16,12 +16,26 @@ Download the files and require them in your project.
 
 `require '/secure-functions/src/SecureFuncs.php';`
 
+## Scrypt and Encryption
+
+#### [domBlack/php-scrypt](https://github.com/DomBlack/php-scrypt)
+Install the php module if you want to use scrypt hashing
+
+
+#### [defuse/php-encryption](https://github.com/defuse/php-encryption)
+Is required if you want to make use of his encryption library. Will be automatically installed with composer
+ 
+
+
 ## Usage
 All functions are static public functions right now so you can simply call the functions like this:
 
 `SecureFuncs\SecureFuncs::password_hash('input');`
 
 ## Functions
+
+### compareStrings($string1, $string2)
+Compare strings while preventing timed attacks
 
 ### decrypt($input, $key)
 Returns the decryped output as a string using [defuse/php-encryption](https://github.com/defuse/php-encryption)'s library.
@@ -49,6 +63,12 @@ Return a random key using [defuse/php-encryption](https://github.com/defuse/php-
 
 ### randomString($length)
 Returns a random string for the given length
+
+### scryptcheck($password, $hash)
+Compare a password and hash using [DomBlack/php-scrypt](https://github.com/DomBlack/php-scrypt)
+
+### scrypthash($password, $salt, $cpu, $memory, $parallel)
+Hash a password using DomBlack's php scrypt library
 
 ### setFormToken($id)
 Set a unique token in the session and returns it, can be used to verify post/get requests
