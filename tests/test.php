@@ -4,26 +4,6 @@ require __DIR__ . '/../vendor/autoload.php';
 class test extends PHPUnit_Framework_TestCase
 {
 
-    public function testEncryptDecrypt()
-    {
-
-        $message = "1234567890abcdefghijklmnopqrstuvwxyz";
-        $encryptedData = SecureFuncs\SecureFuncs::encrypt($message);
-
-        $this->assertArrayHasKey('Key', $encryptedData);
-
-        $this->assertNotEmpty($encryptedData['Key']);
-
-        $this->assertArrayHasKey('Encrypted', $encryptedData);
-
-        $this->assertNotEmpty($encryptedData['Encrypted']);
-
-        $decryptedText = SecureFuncs\SecureFuncs::decrypt($encryptedData['Encrypted'], $encryptedData['Key']);
-
-        $this->assertEquals($message, $decryptedText);
-
-    }
-
     public function testRandom()
     {
 
@@ -40,7 +20,7 @@ class test extends PHPUnit_Framework_TestCase
     public function testPassword()
     {
 
-        $password = "qwerty1234567";
+        $password = \SecureFuncs\SecureFuncs::randomString(32);
 
         $hash = \SecureFuncs\SecureFuncs::password_hash($password);
 
@@ -55,4 +35,9 @@ class test extends PHPUnit_Framework_TestCase
         $this->assertEquals(9, \SecureFuncs\SecureFuncs::strlen('123456789'));
     }
 
+    public function testCompareStrings()
+    {
+        $random_string = \SecureFuncs\SecureFuncs::randomString(12);
+        $this->assertTrue(\SecureFuncs\SecureFuncs::compareStrings($random_string, $random_string));
+    }
 }

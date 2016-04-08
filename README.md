@@ -22,11 +22,6 @@ Download the files and require them in your project.
 Install the php module if you want to use scrypt hashing
 
 
-#### [defuse/php-encryption](https://github.com/defuse/php-encryption)
-Is required if you want to make use of his encryption library. Will be automatically installed with composer
- 
-
-
 ## Usage
 All functions are static public functions right now so you can simply call the functions like this:
 
