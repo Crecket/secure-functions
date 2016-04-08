@@ -37,12 +37,6 @@ All functions are static public functions right now so you can simply call the f
 ### compareStrings($string1, $string2)
 Compare strings while preventing timed attacks
 
-### decrypt($input, $key)
-Returns the decryped output as a string using [defuse/php-encryption](https://github.com/defuse/php-encryption)'s library.
-
-### encrypt($input, $key = false)
-Encrypt a string, if no key is given one will be generated for you (Recommended) using [defuse/php-encryption](https://github.com/defuse/php-encryption)'s library.
-
 ### getFormToken('form_token_id', $form_token, $limit = 300)
 Verify a form token for the given id. The $limit is optional andm ust be given in seconds, if the limit is 300 and the token is used after 300 seconds it will be considered invalid.
 
@@ -57,9 +51,6 @@ Returns a random hexadecimal number for the given length
 
 ### randomInt($min, $max)
 Returns the a secure random integer within the given range.
-
-### randomSecureKey()
-Return a random key using [defuse/php-encryption](https://github.com/defuse/php-encryption)'s library.
 
 ### randomString($length)
 Returns a random string for the given length

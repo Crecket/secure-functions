@@ -10,50 +10,6 @@ class SecureFuncs
     private static $_keyLength = 32;
 
     /**
-     * @param $input
-     * @param $key
-     * @return string
-     * @throws \CannotPerformOperationException
-     * @throws \InvalidCiphertextException
-     */
-    public static function decrypt($input, $key)
-    {
-        try {
-            return \Crypto::decrypt($input, $key);
-        } catch (\Defuse\Crypto\Exception\InvalidCiphertextException $ex) {
-            die('DANGER! DANGER! The ciphertext has been tampered with!');
-        } catch (\Defuse\Crypto\Exception\CryptoTestFailedException $ex) {
-            die('Cannot safely perform decryption');
-        } catch (\Defuse\Crypto\Exception\CannotPerformOperationException $ex) {
-            die('Cannot safely perform decryption');
-        }
-    }
-
-    /**
-     * @param $input
-     * @param bool $key
-     * @return array
-     * @throws CannotPerformOperationException
-     * @throws \CannotPerformOperationException
-     */
-    public static function encrypt($input, $key = false)
-    {
-        if ($key === false || GenericFuncs::strlen($key) !== Crypto::KEY_BYTE_SIZE) {
-            $key = self::randomSecureKey();
-        }
-
-        try {
-            $ciphertext = \Crypto::encrypt($input, $key);
-        } catch (\Defuse\Crypto\Exception\CryptoTestFailedException $ex) {
-            die('Cannot safely perform encryption');
-        } catch (\Defuse\Crypto\Exception\CannotPerformOperationException $ex) {
-            die('Cannot safely perform encryption');
-        }
-
-        return array('Key' => $key, 'Encrypted' => $ciphertext);
-    }
-
-    /**
      * Checks if the given id and token match > If not the form has been sent twice or the ID is incorrect
      * @param $id
      * @param $limit_time
@@ -65,7 +21,7 @@ class SecureFuncs
         // Check if isset
         if (!empty($_SESSION['formtoken'][$id]) && !empty($_SESSION['formtoken_time'][$id])) {
             // Check if token is correct
-            if (md5($_SESSION['formtoken'][$id]) === $token) {
+            if (hash('sha256', $_SESSION['formtoken'][$id]) === $token) {
                 $valid = true;
                 // If time limit is set, check if isset
                 if ($limit_time !== false) {
@@ -137,20 +93,6 @@ class SecureFuncs
     }
 
     /**
-     * @return string
-     */
-    public static function randomSecureKey()
-    {
-        try {
-            return \Crypto::createNewRandomKey();
-        } catch (\Defuse\Crypto\Exception\CryptoTestFailedException $ex) {
-            die('Cannot safely create a key');
-        } catch (\Defuse\Crypto\Exception\CannotPerformOperationException $ex) {
-            die('Cannot safely create a key');
-        }
-    }
-
-    /**
      * @param $length
      * @return string
      * @throws Exception
@@ -180,7 +122,7 @@ class SecureFuncs
     {
         $_SESSION['formtoken'][$id] = self::randomString(100);
         $_SESSION['formtoken_time'][$id] = time();
-        return md5($_SESSION['formtoken'][$id]);
+        return hash('sha256', $_SESSION['formtoken'][$id]);
     }
 
     /**
